@@ -166,10 +166,11 @@ async def history_page(request: Request):
         content_txt = f"""
             <div class="entry">
                 <h2>Добавление:</h2>
-                <p>{row[0].replace("\n", "<br>")}</p>  <!-- Заменяем символ переноса строки на <br> для HTML -->
+                <p>{row[0].replace("\n", "<br>")
+                }</p>  <!-- Заменяем символ переноса строки на <br> для HTML -->
             </div>
-        """ + content_txt  # Добавляем новую запись в начало
-
+        """
+    
     content_txt += """
             </div>
         </body>

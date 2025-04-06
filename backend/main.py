@@ -115,8 +115,10 @@ async def upload_file(file: UploadFile = File(...)):
 
 @app.get("/history")
 async def history_page(request: Request):
-    c.execute("SELECT text FROM text")  # Запрос на получение всех текстов из таблицы
-    rows = c.fetchall()  # Извлечение всех строк из результата
+    # Запрос на получение всех текстов из таблицы
+    c.execute("SELECT text FROM text")
+    # Извлечение всех строк из результата
+    rows = c.fetchall()
 
     # Формируем контент для отображения
     content_txt = """
@@ -161,20 +163,19 @@ async def history_page(request: Request):
                 <h1>История загруженных документов</h1>
     """
 
+    # Добавляем записи из базы данных
     for row in rows:
-        # Каждая запись будет добавлена в начало
-        content_txt = f"""
+        content_txt += f"""
             <div class="entry">
                 <h2>Добавление:</h2>
-                <p>{row[0].replace("\n", "<br>")
-                }</p>  <!-- Заменяем символ переноса строки на <br> для HTML -->
+                <p>{row[0].replace("\n", "<br>")}</p>  <!-- Заменяем символ переноса строки на <br> для HTML -->
             </div>
         """
-    
+
     content_txt += """
             </div>
         </body>
         </html>
     """
-    
+
     return HTMLResponse(content_txt)

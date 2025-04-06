@@ -8,7 +8,7 @@ from starlette.requests import Request
 from backend.models import User
 from backend.config import name, password
 from backend.database import c, db
-
+import uvicorn
 
 
 app = FastAPI()
@@ -162,15 +162,14 @@ async def history_page(request: Request):
     """
 
     for row in rows:
-        # Каждая запись будет заключена в отдельный блок с заголовком
-        content_txt += f"""
+        # Каждая запись будет добавлена в начало
+        content_txt = f"""
             <div class="entry">
                 <h2>Добавление:</h2>
-                <p>{row[0].replace("\n", "<br>")
-                }</p>  <!-- Заменяем символ переноса строки на <br> для HTML -->
+                <p>{row[0].replace("\n", "<br>")}</p>  <!-- Заменяем символ переноса строки на <br> для HTML -->
             </div>
-        """
-    
+        """ + content_txt  # Добавляем новую запись в начало
+
     content_txt += """
             </div>
         </body>

@@ -13,3 +13,11 @@ c.execute('''
     )
 ''')
 db.commit()
+
+def clear_database():
+    #Функция для очистки базы данных parser_db
+    c.execute('DELETE FROM text') 
+    c.execute('DELETE FROM sqlite_sequence WHERE name="text"')
+    db.commit()
+
+clear_database()
